@@ -228,7 +228,25 @@ function UpdateJob() {
             onChange={handleFileChange}
           />
         </label>
-        <button type="submit">Update Job</button>
+        {imageUpload ? (
+          <div>
+            <img
+              src={URL.createObjectURL(imageUpload)}
+              alt="Selected"
+              width={100}
+              height={100}
+            />
+          </div>
+        ) : (
+          job.imageurl && (
+            <div>
+              <img src={job.imageurl} alt="Job" width={100} height={100} />
+            </div>
+          )
+        )}
+        <div className="button-container">
+          <button type="submit">Update Job</button>
+        </div>
       </form>
     </div>
   );

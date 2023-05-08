@@ -181,17 +181,19 @@ function AddJob() {
             onChange={handleInputChange}
           />
         </label>
-        <label>
-          Mobile Contact:
-          <input
-            type="text"
-            name="mobile"
-            value={job.mobile}
-            onChange={handleInputChange}
-            maxLength={10}
-            minLength={10}
-          />
-        </label>
+        <div className="input-container">
+          <label>
+            Mobile Contact:
+            <input
+              type="text"
+              name="mobile"
+              value={job.mobile}
+              onChange={handleInputChange}
+              maxLength={10}
+              minLength={10}
+            />
+          </label>
+        </div>
         <label>
           Job Picture:
           <input
@@ -204,7 +206,19 @@ function AddJob() {
             required
           />
         </label>
-        <button type="submit">Add Job</button>
+        {imageUpload && (
+          <div>
+            <img
+              src={URL.createObjectURL(imageUpload)}
+              alt="Selected"
+              width={100}
+              height={100}
+            />
+          </div>
+        )}
+        <div className="button-container">
+          <button type="submit">Add Job</button>
+        </div>
       </form>
     </div>
   );

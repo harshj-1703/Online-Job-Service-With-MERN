@@ -42,7 +42,7 @@
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-  }
+  }  
   
   label {
     display: block;
@@ -61,12 +61,40 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    /* margin-bottom: 20px; */
+    font-size: 16px;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-container label {
+    margin-bottom: 5px;
+  }
+  
+  .input-container input[type="text"],
+  .input-container input[type="email"],
+  .input-container input[type="number"],
+  .input-container input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
     font-size: 16px;
   }
   
-  input[type="file"] {
-    margin-bottom: 10px;
+  .input-container input[type="file"] {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
   
   button[type="submit"] {
@@ -105,3 +133,16 @@
     font-family: 'Arial', sans-serif; /* font family */
   }
   
+  
+  /* input[type="file"] {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    align-self: center;
+  } */
+
+  /* .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  } */
