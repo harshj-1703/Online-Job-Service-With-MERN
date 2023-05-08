@@ -63,6 +63,11 @@
 
 
   /* Table */
+  .table-container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
   .job-table {
     width: 100%;
     border-collapse: collapse;
@@ -70,7 +75,7 @@
     border: 2px solid #625e5e;
     border-radius: 25px;
     overflow: hidden;
-    margin: 5px;
+    /* margin: 5px; */
   }
   
   .job-table th,
@@ -80,6 +85,10 @@
     border-bottom: 1px solid #ddd;
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20ch;
   }
   
   .job-table th {
@@ -89,7 +98,7 @@
   .job-table tbody tr:hover {
     background-color: #f9f9f9;
   }
-
+  
   .job-table td.long-email {
     word-break: break-all;
   }
@@ -113,8 +122,8 @@
   .job-table button:hover {
     background-color: #c0392b;
   }
-
-  .job-table .update{
+  
+  .job-table .update {
     padding: 5px 10px;
     background-color: #feaf30;
     color: white;
@@ -122,10 +131,11 @@
     border-radius: 4px;
     cursor: pointer;
   }
-
-  .job-table .update:hover{
+  
+  .job-table .update:hover {
     background-color: #fcd641;
   }
+  
   
   .pagination {
     display: flex;

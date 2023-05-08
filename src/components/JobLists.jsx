@@ -174,51 +174,53 @@ function JobLists() {
           {mode === "view" ? (
             <div className="job-grid">{displayJobs}</div>
           ) : (
-            <table className="job-table">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Salary</th>
-                  <th>Experience</th>
-                  <th>Daily Hours</th>
-                  <th>Location</th>
-                  <th>Mobile</th>
-                  <th>Contact</th>
-                  <th colSpan={2}>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {displayJobs1.map((job, index) => (
-                  <tr key={job.id}>
-                    <td className={!imgLoading ? "job-image1" : "loading"}>
-                      <img
-                        src={job.imageurl}
-                        alt={job.name}
-                        onLoad={handleImageLoad}
-                      />
-                    </td>
-                    <td>{job.name}</td>
-                    <td>{job.salary} ₹</td>
-                    <td>{job.experience}</td>
-                    <td>{job.dailyhours}</td>
-                    <td>{job.place}</td>
-                    <td>{job.mobile}</td>
-                    <td>{job.contact}</td>
-                    <td>
-                      <UpdateButton1 job={job} />
-                    </td>
-                    <td>
-                      <DeleteJob
-                        id={job.id}
-                        setIsDeleted={setIsDeleted}
-                        imageurl={job.imageurl}
-                      />
-                    </td>
+            <div className="table-container">
+              <table className="job-table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Experience</th>
+                    <th>Daily Hours</th>
+                    <th>Location</th>
+                    <th>Mobile</th>
+                    <th>Contact</th>
+                    <th colSpan={2}>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {displayJobs1.map((job, index) => (
+                    <tr key={job.id}>
+                      <td className={!imgLoading ? "job-image1" : "loading"}>
+                        <img
+                          src={job.imageurl}
+                          alt={job.name}
+                          onLoad={handleImageLoad}
+                        />
+                      </td>
+                      <td>{job.name}</td>
+                      <td>{job.salary} ₹</td>
+                      <td>{job.experience}</td>
+                      <td>{job.dailyhours}</td>
+                      <td>{job.place}</td>
+                      <td>{job.mobile}</td>
+                      <td>{job.contact}</td>
+                      <td>
+                        <UpdateButton1 job={job} />
+                      </td>
+                      <td>
+                        <DeleteJob
+                          id={job.id}
+                          setIsDeleted={setIsDeleted}
+                          imageurl={job.imageurl}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
           <ReactPaginate
             pageCount={pageCount}

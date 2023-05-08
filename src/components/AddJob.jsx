@@ -5,8 +5,10 @@ import { storage } from "../firebase-config";
 import { v4 } from "uuid";
 import { Spinner } from "react-bootstrap";
 import "../css/addJob.css";
+import { useNavigate } from "react-router-dom";
 
 function AddJob() {
+  const navigate = useNavigate();
   const [job, setJob] = useState({
     imageurl: "",
     name: "",
@@ -39,6 +41,7 @@ function AddJob() {
     console.log(job);
     await addJob(job);
     event.target.reset();
+    navigate("/");
   };
 
   const addJob = async (job) => {
@@ -185,7 +188,7 @@ function AddJob() {
           <label>
             Mobile Contact:
             <input
-              type="text"
+              type="number"
               name="mobile"
               value={job.mobile}
               onChange={handleInputChange}

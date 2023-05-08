@@ -11,6 +11,7 @@ import { v4 } from "uuid";
 import { Spinner } from "react-bootstrap";
 import "../css/addJob.css";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function UpdateJob() {
   const location = useLocation();
@@ -42,12 +43,15 @@ function UpdateJob() {
     return url;
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     console.log(job);
     await updateJob(job);
-    // event.target.reset();
+    event.target.reset();
+    navigate("/");
   };
 
   const updateJob = async (job) => {
@@ -209,7 +213,7 @@ function UpdateJob() {
         <label>
           Mobile Contact:
           <input
-            type="text"
+            type="number"
             name="mobile"
             value={job.mobile}
             onChange={handleInputChange}

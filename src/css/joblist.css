@@ -38,7 +38,6 @@
     }
   }
   
-  
   .job-card {
     display: flex;
     flex-direction: column;
@@ -80,9 +79,17 @@
     font-weight: 600;
     margin-bottom: 0.2rem;
     color: #0c2290;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20ch;
   }
   
   .job-salary {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 11ch;
     font-size: 17px;
     color: #4d4475;
     font-weight: 500;
@@ -91,8 +98,8 @@
   
   .job-apply {
     margin-top: auto;
-  }
-  
+  }  
+
   .not-found {
     display: flex;
     justify-content: center;
