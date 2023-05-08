@@ -137,24 +137,37 @@ function AddJob() {
             name="name"
             value={job.name}
             onChange={handleInputChange}
+            maxLength={35}
+            minLength={1}
+            required
           />
         </label>
         <label>
           Salary:
           <input
-            type="number"
+            type="text"
             name="salary"
             value={job.salary}
             onChange={handleInputChange}
+            maxLength={8}
+            minLength={3}
+            pattern="[0-9]*"
+            // pattern="\d{8}"
+            required
           />
         </label>
         <label>
-          Experience(in years):
+          Experience (in years):
           <input
-            type="number"
+            type="text"
             name="experience"
             value={job.experience}
             onChange={handleInputChange}
+            maxLength={2}
+            minLength={1}
+            pattern="[0-9]*"
+            required
+            // pattern="\d{2}"
           />
         </label>
         <label>
@@ -164,6 +177,11 @@ function AddJob() {
             name="dailyhours"
             value={job.dailyhours}
             onChange={handleInputChange}
+            // pattern="\d{2}"
+            maxLength={2}
+            minLength={1}
+            pattern="[0-9]*"
+            required
           />
         </label>
         <label>
@@ -173,6 +191,9 @@ function AddJob() {
             name="place"
             value={job.place}
             onChange={handleInputChange}
+            maxLength={25}
+            minLength={1}
+            required
           />
         </label>
         <label>
@@ -182,6 +203,7 @@ function AddJob() {
             name="contact"
             value={job.contact}
             onChange={handleInputChange}
+            required
           />
         </label>
         <div className="input-container">
@@ -192,8 +214,8 @@ function AddJob() {
               name="mobile"
               value={job.mobile}
               onChange={handleInputChange}
-              maxLength={10}
-              minLength={10}
+              pattern="[0-9]{10}"
+              required
             />
           </label>
         </div>

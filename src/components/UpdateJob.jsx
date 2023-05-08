@@ -163,6 +163,9 @@ function UpdateJob() {
             name="name"
             value={job.name}
             onChange={handleInputChange}
+            maxLength={35}
+            minLength={1}
+            required
           />
         </label>
         <label>
@@ -172,6 +175,9 @@ function UpdateJob() {
             name="salary"
             value={job.salary}
             onChange={handleInputChange}
+            maxLength={8}
+            minLength={3}
+            pattern="[0-9]*"
           />
         </label>
         <label>
@@ -181,6 +187,10 @@ function UpdateJob() {
             name="experience"
             value={job.experience}
             onChange={handleInputChange}
+            maxLength={2}
+            minLength={1}
+            pattern="[0-9]*"
+            required
           />
         </label>
         <label>
@@ -190,6 +200,9 @@ function UpdateJob() {
             name="dailyhours"
             value={job.dailyhours}
             onChange={handleInputChange}
+            maxLength={2}
+            minLength={1}
+            pattern="[0-9]*"
           />
         </label>
         <label>
@@ -199,6 +212,8 @@ function UpdateJob() {
             name="place"
             value={job.place}
             onChange={handleInputChange}
+            maxLength={25}
+            minLength={1}
           />
         </label>
         <label>
@@ -213,12 +228,11 @@ function UpdateJob() {
         <label>
           Mobile Contact:
           <input
-            type="number"
+            type="text"
             name="mobile"
             value={job.mobile}
             onChange={handleInputChange}
-            maxLength={10}
-            minLength={10}
+            pattern="[0-9]{10}"
           />
         </label>
         <label>
