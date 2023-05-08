@@ -50,9 +50,9 @@ function Navbar() {
               <li>
                 <Link to="/add">Add Job</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/managejobs">Manage Job</Link>
-              </li>
+              </li> */}
             </>
           )}
           {localStorage.getItem("displayName") && (

@@ -16,6 +16,14 @@ function JobLists() {
   const [imgLoading, setImgLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState("newest");
   const [isDeleted, setIsDeleted] = useState(false);
+  const [mode, setMode] = useState("view");
+  const adminEmail = "harsh.jolapara110578@marwadiuniversity.ac.in";
+
+  const handleSliderChange = () => {
+    const newMode = mode === "view" ? "edit" : "view";
+    setMode(newMode);
+    // onModeChange(newMode);
+  };
 
   function handleImageLoad() {
     setImgLoading(false);
@@ -83,23 +91,25 @@ function JobLists() {
           <div className="job-apply">
             <ApplyJob id={job.id} />
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              margin: "1rem 0",
-            }}
-          >
-            <UpdateButton job={job} />
-            <div style={{ margin: "0 0.5rem" }}></div>
-            <DeleteJob
-              id={job.id}
-              setIsDeleted={setIsDeleted}
-              setIsLoading={setIsLoading}
-              imageurl={job.imageurl}
-            />
-          </div>
+          {mode === "edit" && localStorage.getItem("email") === adminEmail && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                margin: "1rem 0",
+              }}
+            >
+              <UpdateButton job={job} />
+              <div style={{ margin: "0 0.5rem" }}></div>
+              <DeleteJob
+                id={job.id}
+                setIsDeleted={setIsDeleted}
+                setIsLoading={setIsLoading}
+                imageurl={job.imageurl}
+              />
+            </div>
+          )}
         </div>
       </div>
     ));
@@ -132,6 +142,20 @@ function JobLists() {
           <option value="desc">Salary: High to Low</option>
         </select>
       </div>
+      {localStorage.getItem("email") === adminEmail && (
+        <div className="flex-container-slidebar">
+          <span style={{ marginRight: "0.5rem" }}>View Mode</span>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={mode === "edit"}
+              onChange={handleSliderChange}
+            />
+            <span className="slider round"></span>
+          </label>
+          <span style={{ marginLeft: "0.5rem" }}>Edit Mode</span>
+        </div>
+      )}
 
       {displayJobs.length > 0 ? (
         <>

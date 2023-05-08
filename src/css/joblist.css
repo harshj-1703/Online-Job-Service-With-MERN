@@ -282,3 +282,76 @@
   .update-button-list:hover{
     background-color: #fcd641;
   }
+
+  /* slidebar */
+  .flex-container-slidebar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1rem 0;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px; /* Increase the width for a bigger slider button */
+    height: 30px; /* Increase the height for a bigger slider button */
+    margin-right: 0.5rem;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 30px; /* Increase the border-radius for a bigger slider button */
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px; /* Increase the height for a bigger slider button */
+    width: 26px; /* Increase the width for a bigger slider button */
+    left: 2px; /* Adjust the position for a bigger slider button */
+    bottom: 2px; /* Adjust the position for a bigger slider button */
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #1e5aff;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(30px); /* Adjust the translation for a bigger slider button */
+    -ms-transform: translateX(30px); /* Adjust the translation for a bigger slider button */
+    transform: translateX(30px); /* Adjust the translation for a bigger slider button */
+  }
+  
+  .slider.round {
+    border-radius: 30px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  .flex-container-slidebar span {
+    font-size: 1.2rem; /* Increase the font size for the text */
+    font-weight: bold; /* Add bold style to the text */
+  }
+  
+  
