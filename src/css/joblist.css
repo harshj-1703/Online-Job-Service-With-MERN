@@ -23,9 +23,21 @@
   /* main grid*/
   .job-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     grid-gap: 1.8rem;
   }
+  
+  @media (min-width: 768px) {
+    .job-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .job-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
   
   .job-card {
     display: flex;
