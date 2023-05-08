@@ -82,28 +82,10 @@ function ManageJobs() {
 
   return (
     <>
-      <div className="search-container">
-        <input
-          type="text"
-          name="search"
-          placeholder="Search By Name Or Salary"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="search-input"
-        />
-        <select value={sortOrder} onChange={handleSort}>
-          <option value="" disabled>
-            Sort By
-          </option>
-          <option value="newest">Newest</option>
-          <option value="asc">Salary: Low to High</option>
-          <option value="desc">Salary: High to Low</option>
-        </select>
-      </div>
       {isDeleted && (
         <div className="delete-message">Job successfully deleted!</div>
       )}
-      {displayJobs.length > 0 ? (
+      {displayJobs.length > 0 && (
         <>
           <table className="job-table">
             <thead>
@@ -150,7 +132,7 @@ function ManageJobs() {
               ))}
             </tbody>
           </table>
-          <ReactPaginate
+          {/* <ReactPaginate
             pageCount={pageCount}
             onPageChange={handlePageChange}
             containerClassName="pagination"
@@ -162,10 +144,8 @@ function ManageJobs() {
             nextClassName="page-item"
             activeClassName="active"
             disabledClassName="disabled"
-          />
+          /> */}
         </>
-      ) : (
-        <div className="not-found">Not Found</div>
       )}
     </>
   );
