@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { storage } from "../firebase-config";
 import { ref, deleteObject } from "firebase/storage";
-import ManageJobs from "./ManageJobs";
 import "../css/joblist.css";
 
 function JobLists() {
@@ -81,42 +80,51 @@ function JobLists() {
         })
   )
     .slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE)
-    .map(
-      (job, index) =>
-        mode === "view" && (
-          <div key={job.id} className="job-card">
-            <div className={!imgLoading ? "job-image" : "loading"}>
-              <img src={job.imageurl} alt={job.name} onLoad={handleImageLoad} />
-            </div>
-            <div className="job-details">
-              <div className="job-name1">{job.name}</div>
-              <div className="job-salary">SALARY: {job.salary} ₹</div>
-              <div className="job-apply">
-                <ApplyJob id={job.id} />
-              </div>
-              {localStorage.getItem("email") === adminEmail && (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    margin: "1rem 0",
-                  }}
-                >
-                  <UpdateButton job={job} />
-                  <div style={{ margin: "0 0.5rem" }}></div>
-                  <DeleteJob
-                    id={job.id}
-                    setIsDeleted={setIsDeleted}
-                    setIsLoading={setIsLoading}
-                    imageurl={job.imageurl}
-                  />
-                </div>
-              )}
-            </div>
+    .map((job, index) => (
+      <div key={job.id} className="job-card">
+        <div className={!imgLoading ? "job-image" : "loading"}>
+          <img src={job.imageurl} alt={job.name} onLoad={handleImageLoad} />
+        </div>
+        <div className="job-details">
+          <div className="job-name1">{job.name}</div>
+          <div className="job-salary">SALARY: {job.salary} ₹</div>
+          <div className="job-apply">
+            <ApplyJob id={job.id} />
           </div>
-        )
-    );
+          {localStorage.getItem("email") === adminEmail && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                margin: "1rem 0",
+              }}
+            >
+              <UpdateButton job={job} />
+              <div style={{ margin: "0 0.5rem" }}></div>
+              <DeleteJob
+                id={job.id}
+                setIsDeleted={setIsDeleted}
+                setIsLoading={setIsLoading}
+                imageurl={job.imageurl}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    ));
+
+  const displayJobs1 = (
+    sortOrder === "newest"
+      ? filteredJobs
+      : filteredJobs.sort((a, b) => {
+          if (sortOrder === "asc") {
+            return parseInt(a.salary) - parseInt(b.salary);
+          } else {
+            return parseInt(b.salary) - parseInt(a.salary);
+          }
+        })
+  ).slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE);
 
   if (isLoading) {
     return (
@@ -163,10 +171,54 @@ function JobLists() {
 
       {displayJobs.length > 0 ? (
         <>
-          {mode !== "edit" ? (
+          {mode === "view" ? (
             <div className="job-grid">{displayJobs}</div>
           ) : (
-            <ManageJobs />
+            <table className="job-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Salary</th>
+                  <th>Experience</th>
+                  <th>Daily Hours</th>
+                  <th>Location</th>
+                  <th>Mobile</th>
+                  <th>Contact</th>
+                  <th colSpan={2}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {displayJobs1.map((job, index) => (
+                  <tr key={job.id}>
+                    <td className={!imgLoading ? "job-image1" : "loading"}>
+                      <img
+                        src={job.imageurl}
+                        alt={job.name}
+                        onLoad={handleImageLoad}
+                      />
+                    </td>
+                    <td>{job.name}</td>
+                    <td>{job.salary} ₹</td>
+                    <td>{job.experience}</td>
+                    <td>{job.dailyhours}</td>
+                    <td>{job.place}</td>
+                    <td>{job.mobile}</td>
+                    <td>{job.contact}</td>
+                    <td>
+                      <UpdateButton1 job={job} />
+                    </td>
+                    <td>
+                      <DeleteJob
+                        id={job.id}
+                        setIsDeleted={setIsDeleted}
+                        imageurl={job.imageurl}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
           <ReactPaginate
             pageCount={pageCount}
@@ -239,6 +291,19 @@ function UpdateButton({ job }) {
   };
   return (
     <button className="update-button-list" onClick={handleUpdate}>
+      Update
+    </button>
+  );
+}
+
+function UpdateButton1({ job }) {
+  const navigate = useNavigate();
+  const handleUpdate = () => {
+    // console.log(job);
+    navigate("/updatejob", { state: job });
+  };
+  return (
+    <button className="update" onClick={handleUpdate}>
       Update
     </button>
   );
