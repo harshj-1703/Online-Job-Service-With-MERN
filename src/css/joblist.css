@@ -101,15 +101,17 @@
   }
 
   /*search button*/
-  .search-container {
+  .search-container2 {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin: 2rem 0;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  flex-direction: row;
   }
   
-  .search-input {
+  .search-input2 {
+    flex: 1;
     width: 100%;
     max-width: 500px;
     padding: 0.5rem;
@@ -121,26 +123,21 @@
     outline: none;
     box-shadow: 2px 2.5px 4px rgba(0, 110, 255, 0.525);
     border: 1px solid #1e5aff;
+    margin-right: 1rem;
+    /* margin-bottom: auto; */
   }
-
-  .search-input::placeholder {
+  
+  .search-input2::placeholder {
     color: #999999;
   }
   
-  .search-input:focus {
+  .search-input2:focus {
     border: 2px solid;
     border-color: #1e5aff;
     box-shadow: 0px 2px 4px rgba(30, 144, 255, 0.3);
   }
-
-  /* sorting */
-  .search-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-  }
-    
-    .search-container select {
+  
+  .search-container2 select {
     padding: 0.5rem;
     border-radius: 4px;
     border: 1px solid #e0e0e0;
@@ -152,16 +149,17 @@
     border: 1px solid #1e5aff;
     margin-left: 1rem;
   }
-    
-    .search-container select:focus {
+  
+  .search-container2 select:focus {
     border: 2px solid;
     border-color: #1e5aff;
     box-shadow: 0px 2px 4px rgba(30, 144, 255, 0.3);
   }
-    
-    .search-container option[disabled] {
+  
+  .search-container2 option[disabled] {
     color: #999999;
   }
+  
 
   /* Apply Button */
   .button-85 {
@@ -257,4 +255,30 @@
   
   @keyframes spin {
     to { transform: rotate(360deg); }
+  }
+
+  .delete-button-list {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-button-list:hover {
+    background-color: #c0392b;
+  }
+
+  .update-button-list{
+    padding: 5px 10px;
+    background-color: #feaf30;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .update-button-list:hover{
+    background-color: #fcd641;
   }

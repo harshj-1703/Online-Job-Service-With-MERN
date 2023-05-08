@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Spinner, Table } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { jobServices } from "../services/job.services";
 import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import { storage } from "../firebase-config";
+import { ref, deleteObject } from "firebase/storage";
 import "../css/joblist.css";
 
 function JobLists() {
@@ -13,6 +15,7 @@ function JobLists() {
   const ITEMS_PER_PAGE = 8;
   const [imgLoading, setImgLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState("newest");
+  const [isDeleted, setIsDeleted] = useState(false);
 
   function handleImageLoad() {
     setImgLoading(false);
@@ -80,6 +83,23 @@ function JobLists() {
           <div className="job-apply">
             <ApplyJob id={job.id} />
           </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              margin: "1rem 0",
+            }}
+          >
+            <UpdateButton job={job} />
+            <div style={{ margin: "0 0.5rem" }}></div>
+            <DeleteJob
+              id={job.id}
+              setIsDeleted={setIsDeleted}
+              setIsLoading={setIsLoading}
+              imageurl={job.imageurl}
+            />
+          </div>
         </div>
       </div>
     ));
@@ -93,15 +113,15 @@ function JobLists() {
   }
 
   return (
-    <div>
-      <div className="search-container">
+    <div className="main-div">
+      <div className="search-container2">
         <input
           type="text"
           name="search"
           placeholder="Search By Name Or Salary"
           value={searchTerm}
           onChange={handleSearchChange}
-          className="search-input"
+          className="search-input2"
         />
         <select value={sortOrder} onChange={handleSort}>
           <option value="" disabled>
@@ -145,6 +165,49 @@ function ApplyJob({ id }) {
   return (
     <button className="button-85" onClick={handleApply}>
       Apply
+    </button>
+  );
+}
+
+function DeleteJob({ id, setIsDeleted, imageurl, setIsLoading }) {
+  const handleDelete = () => {
+    //image delete
+    const imageRef = ref(storage, imageurl);
+    // Delete the file
+    deleteObject(imageRef)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //job delete
+    jobServices.deleteJob(id).then(() => {
+      setIsDeleted(true);
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        setIsDeleted(false);
+        window.location.reload();
+      }, 1700);
+    });
+  };
+
+  return (
+    <button className="delete-button-list" onClick={handleDelete}>
+      Delete
+    </button>
+  );
+}
+
+function UpdateButton({ job }) {
+  const navigate = useNavigate();
+  const handleUpdate = () => {
+    // console.log(job);
+    navigate("/updatejob", { state: job });
+  };
+  return (
+    <button className="update-button-list" onClick={handleUpdate}>
+      Update
     </button>
   );
 }
