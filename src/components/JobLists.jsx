@@ -12,7 +12,9 @@ function JobLists() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage1, setCurrentPage1] = useState(0);
   const ITEMS_PER_PAGE = 8;
+  const ITEMS_PER_PAGE1 = 15;
   const [imgLoading, setImgLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState("newest");
   const [isDeleted, setIsDeleted] = useState(false);
@@ -62,12 +64,17 @@ function JobLists() {
     setCurrentPage(selected);
   };
 
+  const handlePageChange1 = ({ selected }) => {
+    setCurrentPage1(selected);
+  };
+
   const handleSort = (event) => {
     const selectedValue = event.target.value;
     setSortOrder(selectedValue);
   };
 
   const pageCount = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE);
+  const pageCount1 = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE1);
 
   const displayJobs = (
     sortOrder === "newest"
@@ -125,7 +132,7 @@ function JobLists() {
             return parseInt(b.salary) - parseInt(a.salary);
           }
         })
-  ).slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE);
+  ).slice(currentPage1 * ITEMS_PER_PAGE1, (currentPage1 + 1) * ITEMS_PER_PAGE1);
 
   if (isLoading) {
     return (
@@ -173,69 +180,86 @@ function JobLists() {
       {displayJobs.length > 0 ? (
         <>
           {mode === "view" ? (
-            <div className="job-grid">{displayJobs}</div>
+            <>
+              <div className="job-grid">{displayJobs}</div>
+              <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={handlePageChange}
+                containerClassName="pagination"
+                pageLinkClassName="page-link"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
+                pageClassName="page-item"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                activeClassName="active"
+                disabledClassName="disabled"
+              />
+            </>
           ) : (
-            <div className="table-container">
-              <table className="job-table">
-                <thead>
-                  <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Salary</th>
-                    <th>Experience</th>
-                    <th>Daily Hours</th>
-                    <th>Location</th>
-                    <th>Mobile</th>
-                    <th>Contact</th>
-                    <th colSpan={2}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {displayJobs1.map((job, index) => (
-                    <tr key={job.id}>
-                      <td className={!imgLoading ? "job-image1" : "loading"}>
-                        <img
-                          src={job.imageurl}
-                          alt={job.name}
-                          onLoad={handleImageLoad}
-                        />
-                      </td>
-                      <td>{job.name}</td>
-                      <td>{job.salary} ₹</td>
-                      <td>{job.experience}</td>
-                      <td>{job.dailyhours}</td>
-                      <td>{job.place}</td>
-                      <td>{job.mobile}</td>
-                      <td>{job.contact}</td>
-                      <td>
-                        <UpdateButton1 job={job} />
-                      </td>
-                      <td>
-                        <DeleteJob
-                          id={job.id}
-                          setIsDeleted={setIsDeleted}
-                          imageurl={job.imageurl}
-                        />
-                      </td>
+            <>
+              <div className="table-container">
+                <table className="job-table">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>Salary</th>
+                      <th>Experience</th>
+                      <th>Daily Hours</th>
+                      <th>Location</th>
+                      <th>Mobile</th>
+                      <th>Contact</th>
+                      <th colSpan={2}>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {displayJobs1.map((job, index) => (
+                      <tr key={job.id}>
+                        <td className={!imgLoading ? "job-image1" : "loading"}>
+                          <img
+                            src={job.imageurl}
+                            alt={job.name}
+                            onLoad={handleImageLoad}
+                          />
+                        </td>
+                        <td>{job.name}</td>
+                        <td>{job.salary} ₹</td>
+                        <td>{job.experience}</td>
+                        <td>{job.dailyhours}</td>
+                        <td>{job.place}</td>
+                        <td>{job.mobile}</td>
+                        <td>{job.contact}</td>
+                        <td>
+                          <UpdateButton1 job={job} />
+                        </td>
+                        <td>
+                          <DeleteJob
+                            id={job.id}
+                            setIsDeleted={setIsDeleted}
+                            imageurl={job.imageurl}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <ReactPaginate
+                pageCount={pageCount1}
+                onPageChange={handlePageChange1}
+                containerClassName="pagination"
+                pageLinkClassName="page-link"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
+                pageClassName="page-item"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                activeClassName="active"
+                disabledClassName="disabled"
+              />
+            </>
           )}
-          <ReactPaginate
-            pageCount={pageCount}
-            onPageChange={handlePageChange}
-            containerClassName="pagination"
-            pageLinkClassName="page-link"
-            previousLinkClassName="page-link"
-            nextLinkClassName="page-link"
-            pageClassName="page-item"
-            previousClassName="page-item"
-            nextClassName="page-item"
-            activeClassName="active"
-            disabledClassName="disabled"
-          />
         </>
       ) : (
         <div className="not-found">Not Found</div>
