@@ -62,8 +62,9 @@ function JobLists() {
     setCurrentPage(selected);
   };
 
-  const handleSort = () => {
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  const handleSort = (event) => {
+    const selectedValue = event.target.value;
+    setSortOrder(selectedValue);
   };
 
   const pageCount = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE);
